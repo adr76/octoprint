@@ -1,0 +1,773 @@
+accessControl:
+    salt: NOUwnWy1zduuaFvUCO5Sk3vrdrsDtliP
+api:
+    allowCrossOrigin: true
+    key: 89E7260424C248079AB09C312E84C702
+appearance:
+    color: black
+    components:
+        order:
+            sidebar:
+            - plugin_firmware_check
+            - plugin_klipper
+            - state
+            - plugin_action_command_notification
+            - plugin_gcodebar
+            - plugin_status_line
+            tab:
+            - control
+            - temperature
+            - terminal
+            - plugin_dashboard
+            - timelapse
+            - plugin_klipper_main
+            - plugin_gcodeviewer
+            - plugin_enclosure
+            - plugin_bedlevelvisualizer
+    name: RPD3
+controls:
+-   children:
+    -   command: SET_GCODE_OFFSET Z_ADJUST=-.1 MOVE=1
+        confirm: null
+        name: -- Z --
+    -   command: SET_GCODE_OFFSET Z_ADJUST=.1 MOVE=1
+        name: ++ Z ++
+    layout: horizontal
+    name: Main
+plugins:
+    DisplayLayerProgress:
+        appendActualBedTempBrowserTitle: true
+        appendTargetBedTempBrowserTitle: true
+        layerExpressions: "1 [; layer ([0-9]+),.*]\t\tSimplify3D"
+        printerDisplayWidth: 20%
+        showAllPrinterMessages: false
+        showOnNavBar: false
+    _disabled:
+    - gcodesystemcommands
+    - marlingcodedocumentation
+    - gcodeviewer
+    - virtual_printer
+    - yamlpatcher
+    - touchtest
+    - enclosure
+    - webcamtab
+    - consolidate_temp_control
+    - dashboard
+    - toptemp
+    - customcss
+    - simpleemergencystop
+    actioncommands:
+        command_definitions:
+        -   action: stream_on
+            command: videostreamer -input rtsp://192.168.1.19 -fcgi=false -format
+                rtsp
+            enabled: false
+            type: system
+        -   action: klipper_restart
+            command: sudo systemctl restart klipper
+            enabled: true
+            type: system
+        -   action: psu_on
+            command: /usr/local/bin/gpio write 25 1
+            enabled: true
+            type: system
+        -   action: psu_off
+            command: /usr/local/bin/gpio write 25 0
+            enabled: true
+            type: system
+    announcements:
+        _config_version: 1
+        channels:
+            _blog:
+                read_until: 1612178700
+            _important:
+                read_until: 1521111600
+            _octopi:
+                read_until: 1611568800
+            _plugins:
+                read_until: 1615269600
+            _releases:
+                read_until: 1611052200
+    bedlevelingwizard:
+        custom_points:
+        -   point_x: '100'
+            point_y: '10'
+        -   point_x: '196'
+            point_y: '190'
+        -   point_x: '196'
+            point_y: '10'
+        -   point_x: '100'
+            point_y: '190'
+        -   point_x: '145'
+            point_y: '100'
+        offset_xy: '30'
+        offset_z: '0'
+        use_custom_points: true
+    bedlevelvisualizer:
+        _config_version: 1
+        command: 'G28
+
+            G29
+
+            @BEDLEVELVISUALIZER
+
+            BED_MESH_OUTPUT'
+        commands:
+        -   command: 'BED_MESH_CALIBRATE
+
+                BED_MESH_OUTPUT'
+            confirmation: false
+            enabled_while_graphing: false
+            enabled_while_printing: false
+            icon: fas fa-chess-board
+            input: []
+            label: BED_MESH_CALIBRATE
+            message: ''
+            tooltip: ''
+        -   command: BED_MESH_CLEAR
+            confirmation: false
+            enabled_while_graphing: false
+            enabled_while_printing: false
+            icon: fas fa-arrow-down
+            input: []
+            label: BED_MESH_CLEAR
+            message: ''
+            tooltip: ''
+        -   command: BED_MESH_PROFILE SAVE=pie
+            confirmation: false
+            enabled_while_graphing: false
+            enabled_while_printing: false
+            icon: fab fa-gg
+            input: []
+            label: BED_MESH_PROFILE SAVE=pie
+            message: ''
+            tooltip: ''
+        -   command: BED_MESH_PROFILE REMOVE=default
+            confirmation: false
+            enabled_while_graphing: false
+            enabled_while_printing: false
+            icon: fab fa-gg
+            input: []
+            label: BED_MESH_PROFILE REMOVE=default
+            message: ''
+            tooltip: ''
+        debug_logging: true
+        ignore_correction_matrix: true
+        mesh_timestamp: 10.01.2021, 09:29:10
+        stored_mesh:
+        -   - '0.120000'
+            - '0.093272'
+            - '0.084198'
+            - '0.082500'
+            - '0.080309'
+            - '0.072160'
+            - '0.055000'
+            - '0.028179'
+            - '-0.006543'
+            - '-0.045000'
+            - '-0.080617'
+            - '-0.104414'
+            - '-0.105000'
+        -   - '0.114516'
+            - '0.083963'
+            - '0.073648'
+            - '0.071626'
+            - '0.068778'
+            - '0.058815'
+            - '0.038277'
+            - '0.006529'
+            - '-0.034233'
+            - '-0.078987'
+            - '-0.119881'
+            - '-0.146237'
+            - '-0.144547'
+        -   - '0.100149'
+            - '0.073079'
+            - '0.063214'
+            - '0.059928'
+            - '0.055127'
+            - '0.043253'
+            - '0.021286'
+            - '-0.011262'
+            - '-0.052341'
+            - '-0.097366'
+            - '-0.139219'
+            - '-0.168243'
+            - '-0.172248'
+        -   - '0.082500'
+            - '0.062197'
+            - '0.054110'
+            - '0.050000'
+            - '0.043601'
+            - '0.030622'
+            - '0.008750'
+            - '-0.022356'
+            - '-0.061060'
+            - '-0.103750'
+            - '-0.144841'
+            - '-0.176770'
+            - '-0.190000'
+        -   - '0.066029'
+            - '0.052763'
+            - '0.047419'
+            - '0.043817'
+            - '0.037253'
+            - '0.024499'
+            - '0.003801'
+            - '-0.025119'
+            - '-0.061064'
+            - '-0.101363'
+            - '-0.141868'
+            - '-0.176957'
+            - '-0.199532'
+        -   - '0.054053'
+            - '0.046093'
+            - '0.044094'
+            - '0.042737'
+            - '0.037946'
+            - '0.026890'
+            - '0.007984'
+            - '-0.019117'
+            - '-0.053508'
+            - '-0.093045'
+            - '-0.134337'
+            - '-0.172749'
+            - '-0.202402'
+        -   - '0.048750'
+            - '0.043369'
+            - '0.044959'
+            - '0.047500'
+            - '0.046348'
+            - '0.038230'
+            - '0.021250'
+            - '-0.005118'
+            - '-0.040026'
+            - '-0.081250'
+            - '-0.125195'
+            - '-0.166893'
+            - '-0.200000'
+        -   - '0.051152'
+            - '0.045642'
+            - '0.050706'
+            - '0.058230'
+            - '0.061938'
+            - '0.057385'
+            - '0.041965'
+            - '0.014905'
+            - '-0.022731'
+            - '-0.068045'
+            - '-0.116304'
+            - '-0.160939'
+            - '-0.193544'
+        -   - '0.061152'
+            - '0.053830'
+            - '0.061898'
+            - '0.074434'
+            - '0.083002'
+            - '0.081648'
+            - '0.066903'
+            - '0.037782'
+            - '-0.004218'
+            - '-0.055113'
+            - '-0.108437'
+            - '-0.155239'
+            - '-0.184084'
+        -   - '0.077500'
+            - '0.068719'
+            - '0.078966'
+            - '0.095000'
+            - '0.106636'
+            - '0.106744'
+            - '0.091250'
+            - '0.059136'
+            - '0.012438'
+            - '-0.043750'
+            - '-0.101281'
+            - '-0.148951'
+            - '-0.172500'
+        -   - '0.097803'
+            - '0.090964'
+            - '0.102213'
+            - '0.118200'
+            - '0.128742'
+            - '0.126824'
+            - '0.108601'
+            - '0.073391'
+            - '0.023684'
+            - '-0.034866'
+            - '-0.093435'
+            - '-0.140033'
+            - '-0.159501'
+        -   - '0.118529'
+            - '0.121088'
+            - '0.131810'
+            - '0.141687'
+            - '0.144031'
+            - '0.134472'
+            - '0.110962'
+            - '0.073769'
+            - '0.025484'
+            - '-0.028987'
+            - '-0.082413'
+            - '-0.125249'
+            - '-0.145628'
+        -   - '0.135000'
+            - '0.159480'
+            - '0.167798'
+            - '0.162500'
+            - '0.146024'
+            - '0.120700'
+            - '0.088750'
+            - '0.052289'
+            - '0.013323'
+            - '-0.026250'
+            - '-0.064640'
+            - '-0.100165'
+            - '-0.131250'
+        stored_mesh_x:
+        - 0
+        - 23
+        - 47
+        - 70
+        - 93
+        - 117
+        - 140
+        - 163
+        - 187
+        - 210
+        - 233
+        - 257
+        - 280
+        stored_mesh_y:
+        - 0
+        - 15
+        - 30
+        - 45
+        - 60
+        - 75
+        - 90
+        - 105
+        - 120
+        - 135
+        - 150
+        - 165
+        - 180
+        stored_mesh_z_height: 200
+    consolidate_temp_control:
+        layout: vertical
+    cost:
+        currency: €
+    customcss:
+        css: '#temperature-graph { height: 200px; }
+
+            .UICHeaderIcons.CenterMe {left: 40% !important;}
+
+            #navbar_plugin_DisplayLayerProgress{}
+
+            #navbar_plugin_navbartemp{}
+
+            #socInfo {color: #85cece;}
+
+            #toolInfo {color: #f89406;}
+
+            #bedInfo {color: #46acf5;}
+
+            #navbar_plugin_klipper {width: 600px;}
+
+            #control-jog-feedrate {visibility: hidden; height: 5px;}
+
+            #control-jog-flowrate {visibility: hidden;}
+
+            input.input-small {width: 40px;}'
+    dashboard:
+        _config_version: 1
+    discovery:
+        upnpUuid: bead0aa4-ff87-42ba-b2fc-ce6a4308a80c
+    enclosure:
+        _config_version: 6
+    errortracking:
+        unique_id: 48766a72-752e-403c-9046-5f27b295016b
+    fanspeedslider:
+        defaultFanSpeed: 60
+        defaultLastSpeed: true
+        lastSentSpeed: 22
+    gcodesystemcommands:
+        command_definitions:
+        -   command: sudo systemctl start videostreamer.service
+            id: '901'
+        -   command: sudo systemctl stop videostreamer.service
+            id: '900'
+        -   command: wall test
+            id: '10'
+    gcodeviewer:
+        _config_version: 1
+    klipper:
+        _config_version: 2
+        macros:
+        -   macro: M112
+            name: '!!! E-STOP !!!'
+            sidebar: true
+            tab: true
+        -   macro: _restart_
+            name: RESTART
+            sidebar: true
+            tab: true
+        -   macro: _cancel_
+            name: CANCEL PRINT
+            sidebar: true
+            tab: true
+        -   macro: _pause_
+            name: PAUSE PRINT
+            sidebar: true
+            tab: true
+        -   macro: _resume_
+            name: RESUME PRINT
+            sidebar: true
+            tab: true
+        -   macro: UNLOAD_FILAMENT
+            name: Filament Unload
+            sidebar: true
+            tab: true
+        -   macro: LOAD_FILAMENT
+            name: Filament Load
+            sidebar: true
+            tab: true
+    marlingcodedocumentation:
+        documentation_position: bellow_settings
+        include_source_marlin: false
+    navbartemp:
+        cmd: 'tail -n 1 /tmp/klippy.log | sed -nE ''s/^.*tmc: temp=(.*)print_time.*$/\1/p'''
+        cmd_name: TMC
+        makeMoreRoom: true
+        soc_name: Pi
+        useShortNames: true
+    psucontrol:
+        GPIOMode: BCM
+        _config_version: 3
+        autoOn: true
+        autoOnTriggerGCodeCommands: G0,G1,G2,G3,G10,G11,G28,G29,G32,M104,M106,M109,M140,M190,M42,LEDMIN
+        connectOnPowerOn: true
+        disconnectOnPowerOff: true
+        enablePowerOffWarningDialog: false
+        idleTimeout: '10'
+        offGCodeCommand: psoff
+        offSysCommand: gpio write 25 0 && sleep 3 && i2cset -y 0 0x3c 0x00 0xAE
+        onGCodeCommand: pson
+        onSysCommand: gpio write 25 1 && sleep 1 && echo FIRMWARE_RESTART> /tmp/printer
+        onoffGPIOPin: '20'
+        postOnDelay: '7'
+        powerOffWhenIdle: true
+        scripts_gcode_psucontrol_post_on: null
+        scripts_gcode_psucontrol_pre_off: null
+        senseGPIOPin: '25'
+        sensePollingInterval: '5'
+        senseSystemCommand: gpio read 25
+        switchingMethod: SYSTEM
+    softwareupdate:
+        _config_version: 9
+    terminalcommandsextended:
+        _config_version: 4
+        commands:
+        -   command: restart_klippy
+            confirmation: false
+            enabled_while_printing: false
+            icon: fab fa-gg
+            input: []
+            label: RESTART KLIPPY
+            message: ''
+            offset: '0'
+            tooltip: Restart Klipper
+            width: '3'
+        -   command: FIRMWARE_RESTART
+            confirmation: false
+            enabled_while_printing: false
+            icon: fas fa-undo
+            input: []
+            label: RESTART FW
+            message: ''
+            offset: '0'
+            tooltip: Restart MCU Firmware
+            width: '1'
+        -   command: LEDMIN
+            confirmation: false
+            enabled_while_printing: false
+            icon: far fa-lightbulb
+            input: []
+            label: LED ON
+            message: ''
+            offset: '0'
+            tooltip: ''
+            width: '1'
+        -   command: LEDMAX
+            confirmation: false
+            enabled_while_printing: false
+            icon: fas fa-sun
+            input: []
+            label: LED MAX
+            message: ''
+            offset: '0'
+            tooltip: ''
+            width: '1'
+        -   command: LEDOFF
+            confirmation: false
+            enabled_while_printing: false
+            icon: fas fa-lightbulb
+            input: []
+            label: LED OFF
+            message: ''
+            offset: '0'
+            tooltip: ''
+            width: '1'
+        -   command: BLTOUCH_DEBUG COMMAND=reset
+            confirmation: false
+            enabled_while_printing: false
+            icon: fab fa-app-store
+            input: []
+            label: BLTouch RESET
+            message: ''
+            offset: 0
+            tooltip: ''
+            width: '1'
+        -   command: GET_POSITION
+            confirmation: false
+            enabled_while_printing: false
+            icon: fas fa-compress
+            input: []
+            label: GET POSITION
+            message: ''
+            offset: 0
+            tooltip: ''
+            width: '1'
+        -   command: QUERY_ENDSTOPS
+            confirmation: false
+            enabled_while_printing: false
+            icon: fab fa-acquisitions-incorporated
+            input: []
+            label: ENDSTOPS QUERY
+            message: ''
+            offset: 0
+            tooltip: Probe the axis endstops and report if they are   "triggered"
+                or in an "open" state
+            width: '1'
+        -   command: 'SET_KINEMATIC_POSITION X=%(x)s Y=%(y)s Z=%(z)s
+
+                M117 SET X:%(x)s Y:%(y)s Z:%(z)s'
+            confirmation: false
+            enabled_while_printing: false
+            icon: fas fa-arrows-alt
+            input:
+            -   label: ''
+                parameter: x
+                value: '145'
+            -   label: ''
+                parameter: y
+                value: '90'
+            -   label: ''
+                parameter: z
+                value: '20'
+            label: FORCE  MOVE
+            message: ''
+            offset: '0'
+            tooltip: ''
+            width: '5'
+    terminalresponse:
+        regex_definitions:
+        -   command: M117 Extruder temp (1) Bed temp (2)
+            enabled: false
+            regex: T:([^\s]*)[^B]*B:([^\s]*)
+            type: ''
+    toptemp:
+        customMon:
+            cu0:
+                cmd: cat /sys/class/thermal/thermal_zone0/temp | sed 's/\(.\)..$/.\1/'
+                colorChangeLevel: 60
+                colorIcons: true
+                decSep: ','
+                graphSettings:
+                    color: '#000000'
+                    height: 50
+                    opa: 0.2
+                    show: true
+                    width: 1
+                hideOnNoTarget: false
+                icon: fas fa-thermometer-full
+                interval: 25
+                label: ''
+                name: CPU temperature
+                noDigits: 0
+                show: true
+                showTargetArrow: true
+                showTargetTemp: true
+                showUnit: true
+                updated: 1612297475015
+        firstRun: false
+        sortOrder:
+        - bed
+        - tool0
+    touchtest:
+        bedDepth: '180'
+        bedWidth: '280'
+        feedrate: '6000'
+    tracking:
+        enabled: false
+        unique_id: 6603f7c2-14c2-4f69-9331-51d78f8cddd7
+    uicustomizer:
+        compactMenu: false
+        customCSS: '#temperature-graph { height: 200px; }
+
+            .UICHeaderIcons.CenterMe {left: 40% !important;}
+
+            #navbar_plugin_DisplayLayerProgress{}
+
+            #navbar_plugin_navbartemp{}
+
+            #socInfo {color: #85cece;}
+
+            #toolInfo {color: #f89406;}
+
+            #bedInfo {color: #46acf5;}
+
+            #navbar_plugin_klipper {width: 600px;}
+
+            #control-jog-feedrate {visibility: hidden; height: 5px;}
+
+            #control-jog-flowrate {visibility: hidden;}
+
+            input.input-small {width: 40px;}'
+        fixedFooter: false
+        gcodeFullWidth: true
+        hideMainCam: true
+        mainTabs:
+        -   - control_link
+            - true
+            - false
+            - fas fa-gamepad
+            - iconOnly
+            - false
+        -   - temp_link
+            - true
+            - false
+            - fas fa-temperature-low
+            - iconOnly
+            - false
+        -   - term_link
+            - true
+            - false
+            - fas fa-terminal
+            - iconOnly
+            - false
+        -   - tab_plugin_klipper_main_link
+            - true
+            - false
+            - fas fa-laptop-code
+            - iconOnly
+            - false
+        -   - tab_plugin_bedlevelvisualizer_link
+            - true
+            - false
+            - fas fa-map-marked-alt
+            - iconOnly
+            - false
+        navbarplugintempfix: false
+        responsiveMode: false
+        rows:
+        -   _00#sidebar_plugin_klipper_wrapper: true
+            _01#state_wrapper: true
+            _02#sidebar_plugin_firmware_check_warning_wrapper: false
+            _03#sidebar_plugin_firmware_check_info_wrapper: false
+            _04#UICWebCamWidget: false
+            _05#UICGcodeVWidget: false
+        -   _00div.UICmainTabs: true
+        -   _00#sidebar_plugin_gcodebar_wrapper: true
+            _01#files_wrapper: true
+            _02#sidebar_plugin_bedlevelingwizard_wrapper: true
+            _03#sidebar_plugin_status_line_wrapper: true
+            _04#sidebar_plugin_action_command_notification_wrapper: false
+        theme: null
+        topIconSort:
+        - navbar_plugin_DisplayLayerProgress
+        - navbar_plugin_navbartemp
+        - navbar_plugin_klipper
+        - navbar_plugin_action_command_prompt
+        - navbar_plugin_psucontrol
+        - navbar_plugin_logging_seriallog
+        - navbar_plugin_logging_plugintimingslog
+        widths:
+        - '2'
+        - '8'
+        - '2'
+    virtual_printer:
+        _config_version: 1
+printerProfiles:
+    default: rpd3-e3dv6
+serial:
+    abortHeatupOnCancel: false
+    additionalPorts:
+    - /tmp/printer
+    capabilities:
+        emergency_parser: false
+    disconnectOnErrors: false
+    emergencyCommands:
+    - M112
+    exclusive: false
+    logPositionOnPause: false
+    longRunningCommands:
+    - G4
+    - G28
+    - G29
+    - G30
+    - G32
+    - M400
+    - M226
+    - M600
+    - M205
+    triggerOkForM29: false
+server:
+    commands:
+        serverRestartCommand: sudo systemctl restart octoprint
+        systemRestartCommand: sudo systemctl reboot
+        systemShutdownCommand: sudo systemctl poweroff
+    firstRun: false
+    onlineCheck:
+        enabled: true
+    pluginBlacklist:
+        enabled: true
+    secretKey: byLrJPufbCISptqeQbGiTsc1NQo73TvD
+    seenWizards:
+        bedlevelvisualizer: null
+        corewizard: 3
+        tracking: null
+temperature:
+    profiles:
+    -   bed: 70
+        chamber: null
+        extruder: 220
+        name: ABS/CoPet
+    -   bed: 60
+        chamber: null
+        extruder: 240
+        name: PLA-240C
+    -   bed: 80
+        chamber: 0
+        extruder: 250
+        name: Flex
+    -   bed: 60
+        chamber: 0
+        extruder: 180
+        name: PLA
+terminalFilters:
+-   name: Suppress temperature messages
+    regex: '(Send: (N\d+\s+)?M105)|(Recv:\s+(ok\s+((P|B|N)\d+\s+)*)?(B|T\d*):\d+)'
+-   name: Suppress SD status messages
+    regex: '(Send: (N\d+\s+)?M27)|(Recv: SD printing byte)|(Recv: Not SD printing)'
+-   name: Main messages
+    regex: '(Send: N\d*)|(Recv: ok (B|T\d*):)'
+-   name: G1 messages
+    regex: 'Send: G1*'
+webcam:
+    ffmpegVideoCodec: libx264
+    stream: http://rpd3:8080/stream
+    streamTimeout: 10
+    timelapseEnabled: false
+    watermark: false
+    webcamEnabled: false

@@ -1,0 +1,21 @@
+
+; Wait for bed to reach 80% of required temp then set to required temp
+{% if printer_profile.heatedBed %}
+M190 S{{ (plugins.smartpreheat.bed * 0.8)|round }}
+M140 S{{ plugins.smartpreheat.bed }}
+{% endif %}
+
+; Set tool temps
+{% for tool, temp in plugins.smartpreheat.tools.items() %}
+M104 T{{ tool }} S{{ temp }}
+{% endfor %}
+
+; Wait for bed
+{% if printer_profile.heatedBed %}
+M190 S{{ plugins.smartpreheat.bed }}
+{% endif %}
+
+; Wait for tools
+{% for tool, temp in plugins.smartpreheat.tools.items() %}
+M109 T{{ tool }} S{{ temp }}
+{% endfor %}

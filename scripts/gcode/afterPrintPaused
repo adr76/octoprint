@@ -1,0 +1,16 @@
+;{% if pause_position.x is not none %}
+; relative XYZE
+;G91
+;M83
+
+; retract filament, move Z slightly upwards
+;G1 E-5 F3000
+;G1 Z+5 F4500
+
+; absolute XYZE
+;M82
+;G90
+
+; move to a safe rest position, adjust as necessary
+;G1 X140 Y180
+;{% endif %}
